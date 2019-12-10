@@ -1,0 +1,13 @@
+const mysql = require('mysql');
+
+require('dotenv').config(process.cwd(), '.env')
+console.log('lancé via :', process.env.DB_USER);
+
+const connection = mysql.createConnection({
+  host : process.env.DB_HOST,
+  user :  process.env.DB_USER,
+  password : process.env.DB_PWD,
+  database : process.env.DB_DB,
+});
+
+module.exports = connection;

@@ -1,11 +1,12 @@
-const  http  =  require('http');
-const  path  =  require('path');
-const  express  =  require('express');
-const  bodyParser  =  require('body-parser');
-const  morgan  =  require('morgan');
-const  app  =  express();
+const http  =  require('http');
+const path  =  require('path');
+const express  =  require('express');
+const bodyParser  =  require('body-parser');
+const morgan  =  require('morgan');
+const app  =  express();
 const port = 3000;
 const auth = require('./routes/auth/auth');
+const connection = require('./helper/db');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended:  false }));
