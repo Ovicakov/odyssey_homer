@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../../helper/db');
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     return console.error('error: ' + err.message);
   }
@@ -19,25 +19,17 @@ router.get('/auth', (req, res) => {
   });
 });
 
-router.post("/auth/signup", (req,res) => {
-
-  const email = req.body
-  const name = req.body
-  const passWord = req.body
-  const lastName = req.body
-
-  connection.query('INSERT INTO users SET ?', [email, name, passWord, lastName], (err, results) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Erreur lors de l'écriture des données");
-  } else {
-      res.status(200)
-    }
+router.post("/auth/signup", (req, res) => {
+  connection.query('INSERT INTO users SET email=?, password=?, name=?, lastname=?', [req.body.email, req.body.password, req.body.name, req.body.lastname], (err, results) => {
+    if (err)
+      res.status(500).json({ flash: error.message });
+    else
+      res.status(200).json({ flash: "User has been signed up !" });
   })
 })
 
-router.use(function(req, res, next) {
-  const err = new Error ('Not found')
+router.use(function (req, res, next) {
+  const err = new Error('Not found')
   err.status = 404
   next(err);
 })
