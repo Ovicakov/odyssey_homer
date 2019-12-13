@@ -22,7 +22,7 @@ router.get('/auth', (req, res) => {
 router.post("/auth/signup", (req, res) => {
   connection.query('INSERT INTO users SET email=?, password=?, name=?, lastname=?', [req.body.email, req.body.password, req.body.name, req.body.lastname], (err, results) => {
     if (err)
-      res.status(500).json({ flash: error.message });
+      res.status(500).json({ flash: err.message });
     else
       res.status(200).json({ flash: "User has been signed up !" });
   })
