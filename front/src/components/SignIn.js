@@ -3,18 +3,17 @@ import { TextField, Button, Icon, Grid, Box, Typography, Snackbar } from '@mater
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
-function SignUp() {
+function SignIn() {
 
   const [email, setEmail] = useState("mon@email.com")
   const [password, setPassword] = useState("monPassw0rd")
-  const [name, setName] = useState("James")
-  const [lastname, setLastName] = useState("Bond")
   const [flash, setFlash] = useState('')
   const [open, setOpen] = useState(false)
 
-  const obj = { email, password, name, lastname }
+  const obj = { email, password }
 
   const updateEmailField = e => {
     setEmail(e)
@@ -24,19 +23,11 @@ function SignUp() {
     setPassword(e)
   }
 
-  const updateName = e => {
-    setName(e)
-  }
-
-  const updateLastName = e => {
-    setLastName(e)
-  }
-
   const handleSubmit = (e) => {
     console.log('yoyo');
     setOpen(true)
 
-    fetch("/auth/signup",
+    fetch("/auth/signin",
       {
         method: 'POST',
         headers: new Headers({
@@ -74,31 +65,21 @@ function SignUp() {
   return (
     <div>
       <Grid item direction='column'>
-        <Typography variant="h3" color="primary">Sign up !</Typography>
+        <Typography variant="h3" color="primary">To be connected !</Typography>
         <Box spacing={10}>
           <TextField type="email" label="email" onChange={(e) => updateEmailField(e.target.value)} />
         </Box>
         <Box>
           <TextField type="password" label="password" onChange={(e) => updatePassword(e.target.value)} />
         </Box>
-        <Box>
-          <TextField type="text" label="firstname" onChange={(e) => updateName(e.target.value)} />
-        </Box>
-        <Box>
-          <TextField type="text" label="firstname" onChange={(e) => updateLastName(e.target.value)} />
-        </Box>
         <Box spacing={12}>
-          <Link to='/'>
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<Icon>send</Icon>}
-              onClick={e => handleSubmit(e)}>
-              S'inscrire
-            </Button>
+          <Link to='/profile'>
+            <Button variant="contained" color="primary" endIcon={<Icon>send</Icon>} onClick={e => handleSubmit(e)}>
+              Se connecter></Button>
           </Link>
         </Box>
-        <Link to="/signin">Go to sign in !</Link>
+        <Link to="/signup">Go to sign up !</Link>
+
 
         {/* ------------- SNACKBAR -------------- */}
 
@@ -131,4 +112,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignIn;
